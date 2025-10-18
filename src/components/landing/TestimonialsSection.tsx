@@ -1,5 +1,6 @@
-import React from 'react';
-import { Star, Quote } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const testimonials = [
   {
@@ -48,125 +49,362 @@ const stats = [
 ];
 
 export function TestimonialsSection() {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Auto-advance carousel
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    setIsAutoPlaying(false);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setIsAutoPlaying(false);
+  };
+
   return (
-    <div className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-24 bg-transparent relative overflow-hidden">
+      {/* Enhanced background effects */}
+      <div className="absolute inset-0">
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Trusted by health leaders
-            <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <motion.div 
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <motion.h2 
+            className="text-4xl sm:text-5xl font-bold text-white mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <motion.span 
+              className="block"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              Trusted by health leaders
+            </motion.span>
+            <motion.span 
+              className="block text-white"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+            >
               worldwide
-            </span>
-          </h2>
-          <p className="max-w-3xl mx-auto text-xl text-gray-600">
+            </motion.span>
+          </motion.h2>
+          <motion.p 
+            className="max-w-3xl mx-auto text-xl text-gray-300 leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+          >
             Join hundreds of health organizations using HealthFlow to transform 
             their data into life-saving insights and actions.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Stats grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">
-                {stat.value}
-              </div>
-              <div className="text-lg font-semibold text-gray-700 mb-1">
-                {stat.label}
-              </div>
-              <div className="text-sm text-gray-600">
-                {stat.description}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Testimonials */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow relative"
+            <motion.div 
+              key={index} 
+              className="text-center group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
             >
-              {/* Quote icon */}
-              <div className="absolute top-6 right-6 text-blue-100">
-                <Quote className="h-8 w-8" />
-              </div>
-
-              {/* Rating */}
-              <div className="flex items-center mb-6">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-
-              {/* Quote */}
-              <blockquote className="text-gray-700 text-lg leading-relaxed mb-8">
-                "{testimonial.quote}"
-              </blockquote>
-
-              {/* Author info */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold mr-4">
-                    {testimonial.avatar}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">
-                      {testimonial.author}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {testimonial.title}
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {testimonial.organization}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Metric highlight */}
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">
-                    {testimonial.metrics.value}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    {testimonial.metrics.label}
-                  </div>
-                </div>
-              </div>
-            </div>
+              <motion.div 
+                className="text-4xl sm:text-5xl font-bold text-white mb-2"
+                initial={{ scale: 0.8 }}
+                whileInView={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+              >
+                {stat.value}
+              </motion.div>
+              <motion.div 
+                className="text-lg font-semibold text-white mb-1 group-hover:text-stone-300 transition-colors"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.5 }}
+                viewport={{ once: true }}
+              >
+                {stat.label}
+              </motion.div>
+              <motion.div 
+                className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.7 }}
+                viewport={{ once: true }}
+              >
+                {stat.description}
+              </motion.div>
+            </motion.div>
           ))}
         </div>
+
+        {/* Testimonials Carousel */}
+        <motion.div 
+          className="relative mb-20"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          {/* Main testimonial display */}
+          <div className="relative max-w-4xl mx-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTestimonial}
+                className="bg-stone-900/60 backdrop-blur-lg rounded-3xl p-12 border border-stone-700/50 relative overflow-hidden"
+                initial={{ opacity: 0, x: 100, scale: 0.95 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -100, scale: 0.95 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+                onMouseEnter={() => setIsAutoPlaying(false)}
+                onMouseLeave={() => setIsAutoPlaying(true)}
+              >
+
+                {/* Quote icon */}
+                <motion.div 
+                  className="absolute top-8 right-8 text-white/30"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                >
+                  <Quote className="h-12 w-12" />
+                </motion.div>
+
+                <div className="relative">
+                  {/* Rating */}
+                  <motion.div 
+                    className="flex items-center mb-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                  >
+                    {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: 0.2 + i * 0.1 }}
+                      >
+                        <Star className="h-6 w-6 text-yellow-400 fill-current mr-1" />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  {/* Quote */}
+                  <motion.blockquote 
+                    className="text-white text-2xl leading-relaxed mb-8 font-medium"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                  >
+                    "{testimonials[currentTestimonial].quote}"
+                  </motion.blockquote>
+
+                  {/* Author and metrics */}
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    {/* Author info */}
+                    <motion.div 
+                      className="flex items-center"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.5 }}
+                    >
+                      <motion.div 
+                        className="w-16 h-16 bg-stone-800 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4 border border-stone-700/50"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {testimonials[currentTestimonial].avatar}
+                      </motion.div>
+                      <div>
+                        <div className="font-semibold text-white text-lg">
+                          {testimonials[currentTestimonial].author}
+                        </div>
+                        <div className="text-sm text-stone-300">
+                          {testimonials[currentTestimonial].title}
+                        </div>
+                        <div className="text-sm text-gray-400">
+                          {testimonials[currentTestimonial].organization}
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Metric highlight */}
+                    <motion.div 
+                      className="bg-stone-800/50 backdrop-blur-sm rounded-xl p-6 border border-stone-700/30"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 0.7 }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-white">
+                          {testimonials[currentTestimonial].metrics.value}
+                        </div>
+                        <div className="text-sm text-gray-400 mt-1">
+                          {testimonials[currentTestimonial].metrics.label}
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Navigation arrows */}
+            {/* <motion.button
+              onClick={prevTestimonial}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-stone-800/80 backdrop-blur-sm rounded-full border border-stone-700/50 text-white hover:border-white/50 transition-all duration-300 flex items-center justify-center group"
+              whileHover={{ scale: 1.1, x: -5 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 1 }}
+            >
+              <ChevronLeft className="h-6 w-6 group-hover:scale-110 transition-transform" />
+            </motion.button>
+
+            <motion.button
+              onClick={nextTestimonial}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-stone-800/80 backdrop-blur-sm rounded-full border border-stone-700/50 text-white hover:border-white/50 transition-all duration-300 flex items-center justify-center group"
+              whileHover={{ scale: 1.1, x: 5 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 1 }}
+            >
+              <ChevronRight className="h-6 w-6 group-hover:scale-110 transition-transform" />
+            </motion.button> */}
+          </div>
+
+          {/* Carousel indicators */}
+          <motion.div 
+            className="flex justify-center space-x-3 mt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.2 }}
+          >
+            {testimonials.map((_, index) => (
+              <motion.button
+                key={index}
+                onClick={() => {
+                  setCurrentTestimonial(index);
+                  setIsAutoPlaying(false);
+                }}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentTestimonial
+                    ? 'bg-white w-8'
+                    : 'bg-stone-600 hover:bg-stone-500'
+                }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              />
+            ))}
+          </motion.div>
+        </motion.div>
 
         {/* Case study CTA */}
-        <div className="mt-20 text-center">
-          <div className="bg-white rounded-2xl p-12 shadow-lg max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              See how Nigeria reduced stockouts by 80%
-            </h3>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Learn how the Nigeria Ministry of Health used HealthFlow to transform 
-              their national supply chain and save millions of dollars.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#case-study"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <motion.div 
+            className="bg-stone-900/60 backdrop-blur-lg rounded-3xl p-12 border border-stone-700/50 max-w-4xl mx-auto relative overflow-hidden"
+            whileHover={{ 
+              scale: 1.02,
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            
+            <div className="relative">
+              <motion.h3 
+                className="text-3xl font-bold text-white mb-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
               >
-                Read Case Study
-              </a>
-              <a
-                href="#demo"
-                className="px-8 py-4 rounded-xl text-lg font-semibold text-gray-700 hover:text-gray-900 border-2 border-gray-300 hover:border-gray-400 transition-all duration-200"
+                See how Nigeria reduced stockouts by 80%
+              </motion.h3>
+              <motion.p 
+                className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
               >
-                Schedule Demo
-              </a>
+                Learn how the Nigeria Ministry of Health used HealthFlow to transform 
+                their national supply chain and save millions of dollars.
+              </motion.p>
+              <motion.div 
+                className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <motion.a
+                  href="#case-study"
+                  className="group bg-white text-stone-900 px-8 py-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-lg hover:bg-stone-100"
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 20px 25px -5px rgba(255, 255, 255, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span>Read Case Study</span>
+                </motion.a>
+                <motion.a
+                  href="#demo"
+                  className="group px-8 py-4 rounded-xl text-lg font-semibold text-white border-2 border-white/50 hover:bg-white hover:text-stone-900 transition-all duration-300 backdrop-blur-sm"
+                  whileHover={{ 
+                    scale: 1.05
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Schedule Demo
+                </motion.a>
+              </motion.div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

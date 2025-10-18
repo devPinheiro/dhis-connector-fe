@@ -9,6 +9,7 @@ import {
   CheckCircle,
   ArrowRight 
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const features = [
   {
@@ -66,98 +67,251 @@ const integrations = [
 
 export function FeaturesSection() {
   return (
-    <div className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-24 bg-transparent relative overflow-hidden">
+      {/* Enhanced background effects */}
+      <div className="absolute inset-0">
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            Everything you need to
-            <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <motion.div 
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <motion.h2 
+            className="text-4xl sm:text-5xl font-bold text-white mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <motion.span 
+              className="block"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              Everything you need to
+            </motion.span>
+            <motion.span 
+              className="block text-white"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+            >
               Transform Health Data
-            </span>
-          </h2>
-          <p className="max-w-3xl mx-auto text-xl text-gray-600">
+            </motion.span>
+          </motion.h2>
+          <motion.p 
+            className="max-w-3xl mx-auto text-xl text-gray-300 leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            viewport={{ once: true }}
+          >
             Our platform unifies disparate health systems into a single source of truth, 
             enabling data-driven decisions that save lives and optimize resources.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Features grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <div 
+              <motion.div 
                 key={index}
-                className="group relative bg-gray-50 rounded-2xl p-8 hover:bg-white hover:shadow-xl transition-all duration-300 border border-transparent hover:border-gray-200"
+                className="group relative bg-stone-900/40 backdrop-blur-lg rounded-2xl p-8 border border-stone-700/50 hover:border-stone-600/50 transition-all duration-500 overflow-hidden"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  y: -8,
+                  scale: 1.02,
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+                }}
               >
-                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 text-white mb-6 group-hover:scale-110 transition-transform`}>
-                  <Icon className="h-6 w-6" />
-                </div>
+                {/* Enhanced glow effect on hover */}
+                <motion.div 
+                  className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  initial={false}
+                />
                 
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                <motion.div 
+                  className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-stone-800/50 text-white mb-6 backdrop-blur-sm border border-stone-700/50"
+                  whileHover={{ 
+                    scale: 1.15,
+                    rotate: 5,
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Icon className="h-7 w-7" />
+                </motion.div>
+                
+                <motion.h3 
+                  className="text-xl font-semibold text-white mb-3 group-hover:text-stone-300 transition-colors"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
+                  viewport={{ once: true }}
+                >
                   {feature.title}
-                </h3>
+                </motion.h3>
                 
-                <p className="text-gray-600 mb-6">
+                <motion.p 
+                  className="text-gray-300 mb-6 leading-relaxed"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
+                  viewport={{ once: true }}
+                >
                   {feature.description}
-                </p>
+                </motion.p>
                 
-                <ul className="space-y-2">
+                <motion.ul 
+                  className="space-y-2"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
+                  viewport={{ once: true }}
+                >
                   {feature.highlights.map((highlight, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-gray-600">
-                      <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    <motion.li 
+                      key={idx} 
+                      className="flex items-center text-sm text-gray-400"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 + 0.5 + idx * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <CheckCircle className="h-4 w-4 text-green-400 mr-2 flex-shrink-0" />
                       {highlight}
-                    </li>
+                    </motion.li>
                   ))}
-                </ul>
+                </motion.ul>
 
-                <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ArrowRight className="h-5 w-5 text-gray-400" />
-                </div>
-              </div>
+                <motion.div 
+                  className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                  whileHover={{ x: 5 }}
+                >
+                  <ArrowRight className="h-5 w-5 text-white" />
+                </motion.div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Integrations section */}
-        <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-3xl p-12">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+        <motion.div 
+          className="bg-stone-900/60 backdrop-blur-lg rounded-3xl p-12 border border-stone-700/50 relative overflow-hidden"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          {/* Background decoration */}
+          
+          <motion.div 
+            className="relative text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <motion.h3 
+              className="text-3xl font-bold text-white mb-4"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
               Seamless Integrations
-            </h3>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            </motion.h3>
+            <motion.p 
+              className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
               Connect with existing health information systems and data sources 
               through our extensive library of pre-built integrations.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {integrations.map((integration, index) => (
-              <div 
+              <motion.div 
                 key={index}
-                className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
+                className="group bg-stone-800/50 backdrop-blur-sm rounded-xl p-6 border border-stone-700/30 hover:border-white/50 transition-all duration-300 cursor-pointer"
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  y: -5,
+                  scale: 1.02,
+                  boxShadow: "0 20px 25px -5px rgba(255, 255, 255, 0.1)"
+                }}
               >
-                <h4 className="font-semibold text-gray-900 mb-2">
-                  {integration.name}
-                </h4>
-                <p className="text-gray-600 text-sm">
-                  {integration.description}
-                </p>
-              </div>
+                <motion.div
+                  className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
+                  initial={false}
+                />
+                <div className="relative">
+                  <motion.h4 
+                    className="font-semibold text-white mb-2 group-hover:text-stone-300 transition-colors"
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {integration.name}
+                  </motion.h4>
+                  <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">
+                    {integration.description}
+                  </p>
+                </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <a
+          <motion.div 
+            className="relative text-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+            viewport={{ once: true }}
+          >
+            <motion.a
               href="#integrations"
-              className="inline-flex items-center px-6 py-3 rounded-lg bg-white text-gray-700 font-medium hover:bg-gray-50 transition-colors border border-gray-200"
+              className="inline-flex items-center px-8 py-4 rounded-xl bg-white text-stone-900 font-medium hover:bg-stone-100 transition-all duration-300 group"
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 20px 25px -5px rgba(255, 255, 255, 0.2)"
+              }}
+              whileTap={{ scale: 0.98 }}
             >
-              View all integrations
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
-          </div>
-        </div>
+              <motion.div
+                initial={false}
+              />
+              <span className="relative z-10">View all integrations</span>
+              <motion.div
+                className="relative z-10 ml-2"
+                whileHover={{ x: 5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ArrowRight className="h-4 w-4" />
+              </motion.div>
+            </motion.a>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

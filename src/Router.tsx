@@ -20,6 +20,10 @@ export function Router({ currentPath }: RouterProps) {
     return <LandingPage />;
   }
 
+  if(currentPath === '/dashboard') {
+     return <DashboardPage />;
+  }
+
   // Show Scale.ai clone for /scale path
   if (currentPath === '/scale') {
     return <ScalePage />;
