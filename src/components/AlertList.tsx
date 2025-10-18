@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   AlertTriangle, 
   Clock, 
@@ -7,7 +7,6 @@ import {
   Eye,
   MoreHorizontal,
   User,
-  MessageSquare
 } from 'lucide-react';
 import { formatDate, getStatusColor } from '../lib/utils';
 import type { Alert } from '../types';
@@ -37,13 +36,6 @@ const statusIcons = {
 export function AlertList({ alerts, loading = false, onViewAlert, onUpdateAlert }: AlertListProps) {
   const [selectedAlerts, setSelectedAlerts] = useState<string[]>([]);
 
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedAlerts(alerts.map(a => a.id));
-    } else {
-      setSelectedAlerts([]);
-    }
-  };
 
   const handleSelectAlert = (alertId: string, checked: boolean) => {
     if (checked) {

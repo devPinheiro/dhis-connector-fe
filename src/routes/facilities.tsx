@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Download, Plus, Search } from 'lucide-react';
+import { useState } from 'react';
+import { Download, Plus } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { FilterPanel } from '../components/FilterPanel';
 import { FacilityTable } from '../components/FacilityTable';
@@ -160,7 +160,7 @@ export function FacilitiesPage() {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [selectedFacility, setSelectedFacility] = useState<Facility | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const handleFilterChange = (key: string, value: any) => {
     setFilters(prev => ({

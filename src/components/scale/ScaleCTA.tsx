@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { ArrowRight, CheckCircle, Zap, Users, Shield } from 'lucide-react';
 
 const features = [

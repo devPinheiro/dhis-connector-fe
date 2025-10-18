@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
 export function ScaleNavbar() {

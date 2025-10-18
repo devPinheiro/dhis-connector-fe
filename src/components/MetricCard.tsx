@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo } from 'react';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { formatNumber, formatPercentage, calculatePercentageChange } from '../lib/utils';
 
@@ -39,7 +39,7 @@ export function MetricCard({
     }
   };
 
-  const calculatedTrend = React.useMemo(() => {
+  const calculatedTrend = useMemo(() => {
     if (trend) return trend;
     if (typeof value === 'number' && previousValue !== undefined) {
       const change = calculatePercentageChange(value, previousValue);
@@ -48,7 +48,7 @@ export function MetricCard({
     return 'neutral';
   }, [trend, value, previousValue]);
 
-  const calculatedTrendValue = React.useMemo(() => {
+  const calculatedTrendValue = useMemo(() => {
     if (trendValue !== undefined) return trendValue;
     if (typeof value === 'number' && previousValue !== undefined) {
       return Math.abs(calculatePercentageChange(value, previousValue));

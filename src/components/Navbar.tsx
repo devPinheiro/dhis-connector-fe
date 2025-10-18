@@ -1,5 +1,4 @@
-import React from 'react';
-import { Menu, Bell, User, LogOut, Settings, Search } from 'lucide-react';
+import { Menu, Bell, LogOut, Settings, Search } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { getInitials } from '../lib/utils';
 

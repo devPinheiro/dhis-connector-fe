@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Download, AlertTriangle, Package, TrendingDown, TrendingUp } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { FilterPanel } from '../components/FilterPanel';
@@ -143,7 +143,7 @@ const filterConfigs = [
 
 export function StockPage() {
   const [filters, setFilters] = useState<StockFilters>({});
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const handleFilterChange = (key: string, value: any) => {
     setFilters(prev => ({

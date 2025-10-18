@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { TrendingUp, Users, Database, Globe, Award, Zap } from 'lucide-react';
 
 const metrics = [

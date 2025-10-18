@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { AlertTriangle, TrendingUp, Clock, CheckCircle } from 'lucide-react';
+import { useState } from 'react';
+import { AlertTriangle, TrendingUp, Clock } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { FilterPanel } from '../components/FilterPanel';
 import { AlertList } from '../components/AlertList';
@@ -166,7 +166,7 @@ const filterConfigs = [
 export function AlertsPage() {
   const [filters, setFilters] = useState<AlertFilters>({});
   const [alerts, setAlerts] = useState(mockAlerts);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const handleFilterChange = (key: string, value: any) => {
     setFilters(prev => ({

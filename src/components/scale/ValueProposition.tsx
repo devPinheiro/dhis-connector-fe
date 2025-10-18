@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Users, Layers, Lock, Headphones, CheckCircle } from 'lucide-react';
 
 const values = [

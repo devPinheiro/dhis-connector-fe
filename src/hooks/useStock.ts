@@ -38,7 +38,14 @@ export function useStock(options: UseStockOptions = {}): UseStockResult {
       const response: ApiResponse<StockData[]> = await apiClient.getStock(filters);
       
       setStock(response.data);
-      setMeta(response.meta);
+      if (response.meta) {
+        setMeta({
+          total: response.meta.total ?? 0,
+          page: response.meta.page ?? 1,
+          limit: response.meta.limit ?? 10,
+          totalPages: response.meta.totalPages ?? 1
+        });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch stock data');
       setStock([]);

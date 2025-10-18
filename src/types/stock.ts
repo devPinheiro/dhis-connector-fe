@@ -48,6 +48,7 @@ export interface StockFilters {
   dateFrom?: string;
   dateTo?: string;
   stockStatus?: 'in_stock' | 'low_stock' | 'stockout' | 'overstock';
+  sourceSystem?: string;
 }
 
 export interface StockTrend {

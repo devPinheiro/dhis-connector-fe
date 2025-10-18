@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   X, 
   MapPin, 
@@ -6,10 +5,7 @@ import {
   Mail, 
   Calendar, 
   Building, 
-  Users,
-  Package,
   AlertTriangle,
-  TrendingUp
 } from 'lucide-react';
 import { formatDate, getStatusColor } from '../lib/utils';
 import type { Facility } from '../types';

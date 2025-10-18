@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAuth } from './context/AuthContext';
 import { LandingPage } from './routes/landing';
 import { ScalePage } from './routes/scale';
@@ -18,6 +17,10 @@ export function Router({ currentPath }: RouterProps) {
   // Show landing page for root path when not authenticated
   if (currentPath === '/' && !isAuthenticated && !isLoading) {
     return <LandingPage />;
+  }
+
+  if(currentPath === '/dashboard') {
+     return <DashboardPage />;
   }
 
   // Show Scale.ai clone for /scale path

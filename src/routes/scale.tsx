@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScaleNavbar } from '../components/scale/ScaleNavbar';
 import { ScaleHero } from '../components/scale/ScaleHero';
 import { TrustedBy } from '../components/scale/TrustedBy';

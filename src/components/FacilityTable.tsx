@@ -6,7 +6,8 @@ import {
   Mail, 
   ChevronDown, 
   ChevronUp,
-  MoreHorizontal 
+  MoreHorizontal,
+  Building2
 } from 'lucide-react';
 import { formatDate, getStatusColor } from '../lib/utils';
 import type { Facility } from '../types';

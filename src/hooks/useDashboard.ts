@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiClient } from '../lib/apiClient';
-import type { DashboardMetrics, ReportingCompleteness, AggregationParams, ApiResponse } from '../types';
+import type { DashboardMetrics, ReportingCompleteness, AggregationParams } from '../types';
 
 interface UseDashboardOptions extends AggregationParams {
   enabled?: boolean;
@@ -15,7 +15,7 @@ interface UseDashboardResult {
   refetch: () => void;
 }
 
-export function useDashboard(options: UseDashboardOptions = {}): UseDashboardResult {
+export function useDashboard(options: UseDashboardOptions = { startDate: '', endDate: '' }): UseDashboardResult {
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
   const [reportingCompleteness, setReportingCompleteness] = useState<ReportingCompleteness[]>([]);
   const [loading, setLoading] = useState(false);

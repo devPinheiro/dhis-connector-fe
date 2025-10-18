@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Car, Bot, Eye, MessageSquare, Camera, Cpu, ArrowRight } from 'lucide-react';
 
 const useCases = [

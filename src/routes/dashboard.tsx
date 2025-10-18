@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   Building2, 
   Package, 
   AlertTriangle, 
   TrendingUp,
-  BarChart3,
   Calendar
 } from 'lucide-react';
 import { Layout } from '../components/Layout';
@@ -90,7 +89,7 @@ const filterConfigs = [
 
 export function DashboardPage() {
   const [filters, setFilters] = useState<Record<string, any>>({});
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const handleFilterChange = (key: string, value: any) => {
     setFilters(prev => ({

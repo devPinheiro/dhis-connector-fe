@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronDown, X, Filter } from 'lucide-react';
 
 interface FilterOption {
@@ -98,7 +97,7 @@ export function FilterPanel({
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6">
+    <div className={`bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-6 ${loading ? 'opacity-50 pointer-events-none' : ''}`}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           <Filter className="h-5 w-5 text-gray-400 mr-2" />

@@ -39,7 +39,14 @@ export function useAlerts(options: UseAlertsOptions = {}): UseAlertsResult {
       const response: ApiResponse<Alert[]> = await apiClient.getAlerts(filters);
       
       setAlerts(response.data);
-      setMeta(response.meta);
+      if (response.meta) {
+        setMeta({
+          total: response.meta.total ?? 0,
+          page: response.meta.page ?? 1,
+          limit: response.meta.limit ?? 10,
+          totalPages: response.meta.totalPages ?? 1
+        });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch alerts');
       setAlerts([]);

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { ArrowRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -131,11 +131,16 @@ export function ScaleHero() {
             </motion.h1>
 
             {/* Subheadline */}
-            <p className="text-xl sm:text-2xl text-gray-300 leading-relaxed max-w-2xl">
+            <motion.p 
+              className="text-xl sm:text-2xl text-gray-300 leading-relaxed max-w-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.1 }}
+            >
               We help companies build and deploy high-quality AI models with 
               trusted data and scalable infrastructure. From data labeling to 
               model evaluation, we power AI at enterprise scale.
-            </p>
+            </motion.p>
 
             {/* CTA buttons */}
             <motion.div 
@@ -247,38 +252,77 @@ export function ScaleHero() {
                 {/* Neural network visualization */}
                 <div className="grid grid-cols-4 gap-4">
                   {[...Array(16)].map((_, i) => (
-                    <div
+                    <motion.div
                       key={i}
-                      className={`h-3 rounded-full animate-pulse ${
+                      className={`h-3 rounded-full ${
                         i % 3 === 0 ? 'bg-blue-500/60' : 
                         i % 3 === 1 ? 'bg-purple-500/60' : 'bg-gray-600/60'
                       }`}
-                      style={{ animationDelay: `${i * 100}ms` }}
-                    ></div>
+                      animate={{
+                        opacity: [0.3, 1, 0.3],
+                        scale: [1, 1.1, 1]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: i * 0.1,
+                        ease: "easeInOut"
+                      }}
+                    />
                   ))}
                 </div>
 
                 {/* Data flow animation */}
-                <div className="relative h-32 bg-gray-800/50 rounded-lg p-4">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 rounded-lg animate-pulse"></div>
+                <div className="relative h-32 bg-gray-800/50 rounded-lg p-4 overflow-hidden">
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 rounded-lg"
+                    animate={{
+                      x: [-100, 400, -100]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
                   <div className="relative space-y-3">
-                    <div className="h-2 bg-blue-500/40 rounded animate-pulse"></div>
-                    <div className="h-2 bg-purple-500/40 rounded animate-pulse delay-300"></div>
-                    <div className="h-2 bg-blue-500/40 rounded animate-pulse delay-700"></div>
-                    <div className="h-2 bg-purple-500/40 rounded animate-pulse delay-1000"></div>
+                    {[0, 1, 2, 3].map((index) => (
+                      <motion.div 
+                        key={index}
+                        className={`h-2 rounded ${
+                          index % 2 === 0 ? 'bg-blue-500/40' : 'bg-purple-500/40'
+                        }`}
+                        animate={{
+                          opacity: [0.3, 1, 0.3],
+                          width: ['20%', '100%', '20%']
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: index * 0.3,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    ))}
                   </div>
                 </div>
 
                 {/* Metrics display */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-gray-800/50 rounded-lg p-4">
+                  <motion.div 
+                    className="bg-gray-800/50 rounded-lg p-4"
+                    whileHover={{ scale: 1.02, backgroundColor: 'rgba(31, 41, 55, 0.7)' }}
+                  >
                     <div className="text-blue-400 text-2xl font-bold">98.7%</div>
                     <div className="text-gray-400 text-xs">Model Accuracy</div>
-                  </div>
-                  <div className="bg-gray-800/50 rounded-lg p-4">
+                  </motion.div>
+                  <motion.div 
+                    className="bg-gray-800/50 rounded-lg p-4"
+                    whileHover={{ scale: 1.02, backgroundColor: 'rgba(31, 41, 55, 0.7)' }}
+                  >
                     <div className="text-purple-400 text-2xl font-bold">2.3s</div>
                     <div className="text-gray-400 text-xs">Inference Time</div>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
